@@ -36,3 +36,14 @@ def clean_thumbnail_dir(path):
         return
     import shutil
     shutil.rmtree(os.path.join(path, "thumbnail"))
+
+def generate_indexhtml(path, flist):
+    fhandle = open(os.path.join(path, "index.html"), "w")
+    print >> fhandle, "<!DOCTYPE html>"
+    print >> fhandle, "<html><body>"
+    for f in flist:
+        print >> fhandle, "<img src=\"thumbnail/" + f + "\">"
+    print >> fhandle, "</body></html>"
+
+
+

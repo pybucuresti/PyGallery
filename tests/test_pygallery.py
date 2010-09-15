@@ -27,5 +27,12 @@ class TestPyGallery(unittest.TestCase):
         pygallery.clean_thumbnail_dir(path)
         self.assertFalse(os.path.isdir(thumb_path))
 
+    def test_indexhtml_exists(self):
+        path = './pics/'
+        result = pygallery.read_folder(path)
+        pygallery.make_thumbnails(path, result)
+        pygallery.generate_indexhtml(path, result)
+        self.assertTrue(os.path.isfile(os.path.join(path, "index.html")))
+
 if __name__ == "__main__":
     unittest.main()
