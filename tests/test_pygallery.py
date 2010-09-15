@@ -12,13 +12,10 @@ class TestPyGallery(unittest.TestCase):
 
     def test_read_folder_contents(self):
         params = './pics/'
-        expected = ['pic1.jpg', 'pic2.jpg']
+        expected = ['pic-true.jpg'];
         result = pygallery.read_folder(params)
         self.assertEqual(result, expected)
 
 
 if __name__ == "__main__":
     unittest.main()
-        
-        
-        
