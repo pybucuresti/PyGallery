@@ -7,4 +7,5 @@ setup(name='PyGallery',
       zip_safe=False,
       install_requires=[
       ],
+      entry_points={'console_scripts': ['pygallery = pygallery:main']},
 )
