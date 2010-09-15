@@ -15,10 +15,9 @@ class TestPyGallery(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.temp_folder)
 
-    def test_cmd_arguments(self):
-        params = [1,2,3]
-        result = pygallery.main(params)
-        self.assertEqual(result, params)
+    def test_main(self):
+        pygallery.main(['', self.path])
+        self.assertTrue(os.path.isfile(os.path.join(self.path, "index.html")))
 
     def test_read_folder_contents(self):
         expected = ['pic-true.jpg']

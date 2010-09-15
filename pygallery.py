@@ -3,9 +3,6 @@ import os
 import imghdr
 from PIL import Image
 
-def main(params=sys.argv):
-    return params
-
 def read_folder(path):
     """
     return image files in path
@@ -34,7 +31,6 @@ def make_thumbnails(path, flist):
 def clean_thumbnail_dir(path):
     if not os.path.isdir(os.path.join(path, "thumbnail")):
         return
-    import shutil
     shutil.rmtree(os.path.join(path, "thumbnail"))
 
 def generate_indexhtml(path, flist):
@@ -44,3 +40,9 @@ def generate_indexhtml(path, flist):
     for f in flist:
         print >> fhandle, "<img src=\"thumbnail/" + f + "\">"
     print >> fhandle, "</body></html>"
+
+def main(params=sys.argv):
+    folder = params[1]
+    pics = read_folder(folder)
+    make_thumbnails(folder, pics)
+    generate_indexhtml(folder, pics)
