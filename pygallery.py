@@ -38,7 +38,7 @@ def generate_indexhtml(path, flist):
     print >> fhandle, "<!DOCTYPE html>"
     print >> fhandle, "<html><body>"
     for f in flist:
-        print >> fhandle, "<img src=\"thumbnail/" + f + "\">"
+        print >> fhandle, "<a href=\"" + f + "\"><img src=\"thumbnail/" + f + "\"></a>"
     print >> fhandle, "</body></html>"
 
 def main(params=sys.argv):
