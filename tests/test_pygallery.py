@@ -24,6 +24,8 @@ class TestPyGallery(unittest.TestCase):
         thumb_path = os.path.join(path, 'thumbnail')
         thumb_result = pygallery.read_folder(thumb_path)
         self.assertEqual(expected, thumb_result)
+        pygallery.clean_thumbnail_dir(path)
+        self.assertFalse(os.path.isdir(thumb_path))
 
 if __name__ == "__main__":
     unittest.main()

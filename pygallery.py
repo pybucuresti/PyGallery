@@ -6,8 +6,6 @@ from PIL import Image
 def main(params=sys.argv):
     return params
 
-
-
 def read_folder(path):
     """
     return image files in path
@@ -24,9 +22,17 @@ def read_folder(path):
     return img_file_list
 
 def make_thumbnails(path, flist):
+    if not os.path.isdir(os.path.join(path, "thumbnail")):
+        os.mkdir(os.path.join(path, "thumbnail"))
     for f in flist:
         img_path = os.path.join(path, f)
         image = Image.open(img_path)
         thumb_size = 128, 128
         thumbnail = image.thumbnail(thumb_size, Image.ANTIALIAS)
         image.save(os.path.join(path + 'thumbnail', f), "JPEG")
+
+def clean_thumbnail_dir(path):
+    if not os.path.isdir(os.path.join(path, "thumbnail")):
+        return
+    import shutil
+    shutil.rmtree(os.path.join(path, "thumbnail"))
