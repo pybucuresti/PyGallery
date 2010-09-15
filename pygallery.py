@@ -29,7 +29,7 @@ def make_thumbnails(path, flist):
         image = Image.open(img_path)
         thumb_size = 128, 128
         thumbnail = image.thumbnail(thumb_size, Image.ANTIALIAS)
-        image.save(os.path.join(path + 'thumbnail', f), "JPEG")
+        image.save(os.path.join(path, 'thumbnail', f), "JPEG")
 
 def clean_thumbnail_dir(path):
     if not os.path.isdir(os.path.join(path, "thumbnail")):
@@ -44,6 +44,3 @@ def generate_indexhtml(path, flist):
     for f in flist:
         print >> fhandle, "<img src=\"thumbnail/" + f + "\">"
     print >> fhandle, "</body></html>"
-
-
-
