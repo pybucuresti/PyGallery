@@ -2,6 +2,7 @@ import sys
 import os
 import imghdr
 from PIL import Image
+import argparse
 
 def read_folder(path):
     """
@@ -42,6 +43,9 @@ def generate_indexhtml(path, flist):
     print >> fhandle, "</body></html>"
 
 def main(params=sys.argv):
+    parser = argparse.ArgumentParser(description="Stupid Gallery Generator")
+    parser.add_argument('folder', action='store', nargs=1, help='folder storing pictures')
+    args = parser.parse_args()
     folder = params[1]
     pics = read_folder(folder)
     make_thumbnails(folder, pics)
