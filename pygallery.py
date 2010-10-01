@@ -19,13 +19,15 @@ def read_folder(path):
 
     return img_file_list
 
+width = height = 256
+
 def make_thumbnails(path, flist):
     if not os.path.isdir(os.path.join(path, "thumbnail")):
         os.mkdir(os.path.join(path, "thumbnail"))
     for f in flist:
         img_path = os.path.join(path, f)
         image = Image.open(img_path)
-        thumb_size = 128, 128
+        thumb_size = width, height
         thumbnail = image.thumbnail(thumb_size, Image.ANTIALIAS)
         image.save(os.path.join(path, 'thumbnail', f), "JPEG")
 
@@ -34,13 +36,26 @@ def clean_thumbnail_dir(path):
         return
     shutil.rmtree(os.path.join(path, "thumbnail"))
 
+style_css = """
+    body { background-color: black; }
+    ul.thumbs { list-style: none; }
+    ul.thumbs li { margin: 20px;
+                   width: %(width)dpx; height: %(height)dpx;
+                   float: left; text-align: center; }
+    ul.thumbs li img { padding: 2px; border: 2px solid #333; }
+""" % {'width': width, 'height': height}
+
 def generate_indexhtml(path, flist):
     fhandle = open(os.path.join(path, "index.html"), "w")
     print >> fhandle, "<!DOCTYPE html>"
-    print >> fhandle, "<html><body>"
+    print >> fhandle, "<html>"
+    print >> fhandle, "<head><style>" + style_css + "</style></head>"
+    print >> fhandle, "<body><ul class=\"thumbs\">"
     for f in flist:
-        print >> fhandle, "<a href=\"" + f + "\"><img src=\"thumbnail/" + f + "\"></a>"
-    print >> fhandle, "</body></html>"
+        print >> fhandle, ("<li><a href=\"" + f + "\">"
+                           "<img src=\"thumbnail/" + f + "\">"
+                           "</a></li>")
+    print >> fhandle, "</ul></body></html>"
 
 def main(params=sys.argv):
     parser = argparse.ArgumentParser(description="Stupid Gallery Generator")
